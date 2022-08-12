@@ -31,9 +31,7 @@ export default function Home() {
     setName(temp.name);
     setIsUpdating(listId);
   };
-  useEffect(() => {
-    console.log(name);
-  }, [name]);
+
   const sendTodo = async () => {
     const url = 'http://localhost:5000/add';
     const { data } = await axios.post(url, { name, todos: [] });
@@ -47,8 +45,8 @@ export default function Home() {
   const putTodo = async () => {
     const url = `http://localhost:5000/update/${isUpdating}`;
     const { data } = await axios.put(url, { name });
-    console.log(data);
-    // window.location.reload();
+    setName('');
+    setIsUpdating('');
   };
   const addTodo = async () => {
     let lists = [...list];
@@ -109,6 +107,8 @@ export default function Home() {
       const { data } = await axios.put(url, temp2);
       // window.location.reload();
     }
+    setValue({ title: '', description: '' });
+    setUpdating('');
   };
 
   const deleteOneTodo = async (todoId) => {
